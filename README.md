@@ -1,2 +1,2 @@
 # Numerical-Methods
-All my numerical methods and data structures assignments and test files
+All my Numerical Methods and Data Structures assignments and test files. 
