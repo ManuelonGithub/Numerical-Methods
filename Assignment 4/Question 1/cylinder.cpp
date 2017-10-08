@@ -16,32 +16,32 @@ using namespace std;
 
 class point
 {
-private:
-	float x;
-	float y;
-public:
-	point(float h, float v); // x = h and y = v
-	void write(ostream &out) const; // write a point in the form (x,y)
+	private:
+		float x;
+		float y;
+	public:
+		point(float h, float v); // x = h and y = v
+		void write(ostream &out) const; // write a point in the form (x,y)
 };
 
 class circle
 {
-private:
-	point centre;
-	float radius;
-public:
-	circle(const point &p, float r);
-	void write(ostream &out) const;
+	private:
+		point centre;
+		float radius;
+	public:
+		circle(const point &p, float r);
+		void write(ostream &out) const;
 };
 
 class cylinder
 {
-private:
-	circle base;
-	float height;
-public:
-	cylinder(const circle &c, float ht);
-	void write(ostream &out) const;
+	private:
+		circle base;
+		float height;
+	public:
+		cylinder(const circle &c, float ht);
+		void write(ostream &out) const;
 };
 
 int main(void)
