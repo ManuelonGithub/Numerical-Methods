@@ -45,11 +45,9 @@ class workforce
 
 	public:
 		workforce(int n); // set size = n and allocate an array of employees
-		/*
-		workforce(const employee& other);
-		~employee();
-		employee& operator=(const employee& rhs);
-		*/
+		workforce(const workforce& other);
+		~workforce();
+		workforce& operator=(const workforce& rhs);
 		void read(istream &in);
 		void write(ostream &out) const;
 };
@@ -63,12 +61,12 @@ int main(void)
 
 	w.read(fin);
 	fout << "\nw = \n";
-	w.write(cout);
-/*
+	w.write(fout);
+
 	cout << "C to copy otherwise assign: ";
 	cin >> ch;
 
-	if(ch == ’C’)
+	if(ch == 'C')
 	{
 		workforce v(w); // v’s scope is the body of the if
 		fout << "\nv = \n";
@@ -87,7 +85,7 @@ int main(void)
 
 	fout << "\nw = \n"; // check whether w is still intact
 	w.write(fout);
-*/
+
 	fin.close();
 	fout.close();
 
@@ -118,22 +116,37 @@ void employee::write(ostream &out) const
 workforce::workforce(int n)
 {
 	size = n;
-	list = new employee[n-1];
+	list = new employee[size];
 }
-/*
-workforce::workforce(const employee& other)
-{
 
-}
-workforce::~employee()
+workforce::workforce(const workforce& other)
 {
+	size = other.size;
+	list = new employee[size];
 
+	for(int i = 0; i < size; i++)
+	{
+		list[i] = other.list[i];
+	}
 }
-employee& operator=(const employee& rhs)
+workforce::~workforce()
 {
-
+	delete [] list;
 }
-*/
+
+workforce& workforce::operator=(const workforce& rhs)
+{
+	if(this != &rhs)
+	{
+		for(int i = 0; i < rhs.size; i++)
+		{
+			list[i] = rhs.list[i];
+		}
+	}
+
+	return *this;
+}
+
 void workforce::read(istream &in)
 {
 	for(int i = 0; i < size; i++)
