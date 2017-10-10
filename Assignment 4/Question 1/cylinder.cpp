@@ -6,7 +6,7 @@
  * 
  * Date Created: 08/10/2017
  * 
- * Last Edit: 08/10/2017. Finished coding the exercise
+ * Last Edit: 09/10/2017. Added comments explaining the code
  */
 
 
@@ -14,34 +14,34 @@
 #include <fstream>
 using namespace std;
 
-class point
+class point 		// Class that relates to a point's X-Y position
 {
 	private:
-		float x;
-		float y;
+		float x; 	// X-position	
+		float y; 	// Y-position
 	public:
-		point(float h, float v); // x = h and y = v
-		void write(ostream &out) const; // write a point in the form (x,y)
+		point(float h, float v); 			// The constructor of the point class. h = x-pos, and v = y-pos
+		void write(ostream &out) const; 	// Prints out the point in the form (x,y)
 };
 
-class circle
+class circle 			// Class that relates to a circle's radius and its centre's X-Y position
 {
 	private:
-		point centre;
-		float radius;
+		point centre; 	// The circle's centre, which is a 'point'-type variable
+		float radius; 	// The radius of the circle
 	public:
-		circle(const point &p, float r);
-		void write(ostream &out) const;
+		circle(const point &p, float r); 	// The constructor of the circle class. centre = p, and radius = r. p is passed by reference to avoid needless memory usage
+		void write(ostream &out) const; 	// Prints out the circle in the form of ("centre ="(point)," radius =" radius)
 };
 
-class cylinder
+class cylinder 			// Class that relates to a cylinder's base and height
 {
 	private:
-		circle base;
-		float height;
+		circle base; 	// The cylinder's base, which is a 'circle'-type variable
+		float height; 	// The cylinder's height
 	public:
-		cylinder(const circle &c, float ht);
-		void write(ostream &out) const;
+		cylinder(const circle &c, float ht); 	// The constructor of the cylinder class. base = c, and height = ht. c is passed by reference to avoid needless memory usage
+		void write(ostream &out) const; 		// Prints out the circle in the form of ("base ="(base)," height =" height)
 };
 
 int main(void)
@@ -67,24 +67,24 @@ int main(void)
 }
 //////////////////////////// implementation of point //////////////////////
 
-point::point(float h, float v) // x = h and y = v
+point::point(float h, float v) 	// The constructor of the circle class. centre = p, and radius = r. p is passed by reference to avoid needless memory usage
 {
 	x = h;
 	y = v;
 }
-void point::write(ostream &out) const // write a point in the form (x,y)
+void point::write(ostream &out) const 	// Prints out the point in the form (x,y)
 {
 	out << "(" << x << "," << y << ")";
 }
 
 /////////////////////////// implementation of circle ///////////////////////
 
-circle::circle(const point &p, float r) :centre(p)
+circle::circle(const point &p, float r) :centre(p) 	// Because the centre is a class-varialbe, it needs to be assigned this way 
 {
-	radius = r;
+	radius = r; 	// Including centre here would result in a compiler error
 }
 
-void circle::write(ostream &out) const
+void circle::write(ostream &out) const 	// Prints out the circle in the form of ("centre = "(point)," radius =" radius)
 {
 	out << "(centre = ";
 	centre.write(cout);
@@ -93,12 +93,12 @@ void circle::write(ostream &out) const
 
 /////////////////////////// implementation of cylinder ///////////////////////
 
-cylinder::cylinder(const circle &c, float ht) :base(c)
+cylinder::cylinder(const circle &c, float ht) :base(c) 	// Same thing as above happens here. Since base is a class variable, it needs to be assigned this way 
 {
 	height = ht;
 }
 
-void cylinder::write(ostream &out) const
+void cylinder::write(ostream &out) const 	// Prints out the circle in the form of ("base ="(base)," height =" height)
 {
 	out << "(base = ";
 	base.write(cout);
