@@ -1,0 +1,51 @@
+the queue is actually pretty straightforward to set up.
+The difficulty of the problem comes with printing it properly.
+
+If you get a queue {1,2,3,4,5}, and you instruct get,
+while '1' is still technically in the queue, it should print out {2,3,4,5}.
+
+This means that having a for-loop going 0~count won't work,
+because the printing output will be {1,2,3,4}.
+
+Another issue is when you instruct push a new value x, the queue now is {x,2,3,4,5}, 
+but it needs to print out {2,3,4,5,x}, 
+because that's the order of the queue.
+
+This means to properly print the queue, the function must use the parameters 
+'end', 'start', 'count' (-1pt for not understanding that the teacher named these variables like this for a reason...).
+
+The premise is that you start printing from 'start', and stop and 'end',
+But there's some more to work to it because start can be a higher value than end. 
+This is because we're dealing with a circular queue, 
+so the start being to the left (lower value) or right (higher value) of end is valid.
+
+So there's three (technically 4) states our variables could be in:
+	
+	1. Start is before end (easiest to construct):
+
+		for-loop from start to end!
+
+	2. Start is after end (hardest to construct);
+
+		for-loop from start to count
+		for-loop from 0 to end
+
+	3. Start is equal to end:
+		Means two things: Either queue is empty, or queue is full.
+
+		3.1: Queue is full:
+
+			for-loop from start to count
+			for-loop from 0 to end
+
+		3.2 Queue is empty: 
+			print nothing
+
+So I did this, which works!... Unless Start is 3~4 and count is 2~3... No idea why... yet!
+
+FIGURED IT OUT: The problem was when start was higher than count, 
+because it meant the very last entry in the vector wasn't getting printed. 
+I then realized than when 'start' is bigger than 'end' it meant that the queue had rolled over.
+This means that a better limit for the first for-loop in scenario 2 would be start~max.
+And it works just like before, but without that problem!
+
