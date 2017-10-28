@@ -1,6 +1,6 @@
 /*  FILE: singleserver.cpp
 
-In a single server queueing system jobs arrive at a server for processing. 
+In a single server queueing system jobs arrive at a server for processing.
 The jobs require varying amounts of processing time and the server can only
 process one job at a time.  When the server is busy the jobs must wait in a
 queue.
@@ -12,21 +12,21 @@ queue.
 arriving jobs --->    |  |  |  | --> |  | ----> finished jobs depart
                       |  |  |  |     |  |
                  -----+--+--+--+     +--+
-                  queue of jobs     server     
+                  queue of jobs     server
 
 We observe a single server queue at fixed time periods t = 1, 2, 3, ...
 
 During each time period, the probability of a job arriving is lambda.
 At most one job can arrive in a time period.
 
-During each time period, the probability is mu 
+During each time period, the probability is mu
 that a job currently being processed will finish.
 
 A job has an arrival time, a start time and a finish time.
 
 The server has a queue of jobs waiting to be processed.
-The server has a job which is currently being processed. 
-The server has an attribute called busy which shows whether the job being processed has finished. 
+The server has a job which is currently being processed.
+The server has an attribute called busy which shows whether the job being processed has finished.
 The server also maintains a list of finished jobs for reporting purposes.
 */
 
@@ -45,13 +45,13 @@ class job
 {
     private:
         int arrive;   // arrival time
-        int start;     // start time of processing by server 
+        int start;     // start time of processing by server
         int finish;    // finish time = start + service
 
     public:
         job(void);     // create a job
         void write(ostream& out);
-               
+
     friend class server;  // server has access to all members of job
 };
 
@@ -78,22 +78,22 @@ int main(void)
     server srv;
     int n = 50;
 	unsigned seed = 123456; // good value 8478564
-	
+
 	//cout << "Enter a seed and the number of time steps: ";
 	//cin >> seed >> n;
 
     srand(seed);
-	
+
     for (int t = 1; t < n; t++)
     {
 		srv.process(t);
     }
-    
+
     srv.report(cout);
-        
+
     return 0;
 }
-    
+
 job::job(void)
 {
     arrive = 0;
@@ -103,7 +103,7 @@ job::job(void)
 
 void job::write(ostream& out)
 {
-    out << setw(6) << arrive << setw(6) << start 
+    out << setw(6) << arrive << setw(6) << start
         << setw(6) << finish << endl;
 }
 
@@ -118,7 +118,7 @@ server::server(void)
  * each time consisting of the following steps:
  */
 void server::process(int t)
-{    
+{
     /*
      * step 1: if the server is busy it checks to see if the current job has
      *         finished (probability is mu) and if so, it fills in the job's finish
@@ -126,15 +126,18 @@ void server::process(int t)
      *         attribute to false.
      */
 
-    if(busy && bernoulli(lambda))
+    if(busy)
     {
-        current.finish = t;
-        busy = false;
-        done.push_back(current);
+        if(bernoulli(mu))
+        {
+            current.finish = t;
+            busy = false;
+            done.push_back(current);
+        }
     }
 
     /*
-     * step 2: the server then checks to see if a job has arrived (probability is lambda) 
+     * step 2: the server then checks to see if a job has arrived (probability is lambda)
      *         and if so, it sets the job's arrival time and places the job in
      *         the queue of jobs waiting for service.
      */
@@ -156,6 +159,8 @@ void server::process(int t)
     {
         current = q.front();
         q.pop();
+        current.start = t;
+        busy = true;
     }
 }
 
