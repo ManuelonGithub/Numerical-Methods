@@ -1,0 +1,15 @@
+creating point2: 1, 2
+creating point3: 1, 2, 3
+creating point2 copy: 1, 2
+creating point3 copy: 1, 2, 3
+creating point2: 0, 0
+creating point3: 0, 0, 0
+assigning point2: 1, 2
+assigning point3: 1, 2, 3
+desroying point3: 1, 2, 3
+desroying point2: 1, 2
+desroying point3: 1, 2, 3
+desroying point2: 1, 2
+desroying point3: 1, 2, 3
+desroying point2: 1, 2
+

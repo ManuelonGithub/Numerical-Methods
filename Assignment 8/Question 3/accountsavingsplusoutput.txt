@@ -1,0 +1,38 @@
+savings account: 
+owner: joe
+balance: 1200
+withdrawfee 0.5
+interest rate: 0.02
+
+chequing account: 
+owner: bob
+balance: 1200
+withdrawfee 0.5
+remaining free withdrawals: 2
+
+savings account plus: 
+owner: jill
+balance: 1200
+withdrawfee 0.5
+interest rate: 0.02
+minimum balance: 1000
+
+savings account: 
+owner: joe
+balance: 814.47
+withdrawfee 0.5
+interest rate: 0.02
+
+chequing account: 
+owner: bob
+balance: 799.5
+withdrawfee 0.5
+remaining free withdrawals: 0
+
+savings account plus: 
+owner: jill
+balance: 815.49
+withdrawfee 0.5
+interest rate: 0.02
+minimum balance: 1000
+

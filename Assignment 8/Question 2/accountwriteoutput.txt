@@ -1,0 +1,24 @@
+savings account: 
+owner: joe
+balance: 100
+withdrawfee 0.5
+interest rate: 0.02
+
+chequing account: 
+owner: bob
+balance: 100
+withdrawfee 0.5
+remaining free withdrawals: 2
+
+savings account: 
+owner: joe
+balance: 64.77
+withdrawfee 0.5
+interest rate: 0.02
+
+chequing account: 
+owner: bob
+balance: 64.5
+withdrawfee 0.5
+remaining free withdrawals: 0
+
