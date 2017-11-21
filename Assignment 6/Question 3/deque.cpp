@@ -8,7 +8,7 @@
  *
  * Date Created: 21/10/2017
  *
- * Last Edit: 22/10/2017
+ * Last Edit: 24/10/2017
  */
 
 #include <iostream>
@@ -300,15 +300,25 @@ void deque::put_front(int x) // put x at the front of the list
 
 int deque::get_front(void) // get the node at the front of the list
 {
-	int temp = 0;
-	temp = front->data;
-
-	node * ptr = front;
-
-	front = front->prev;
-
-	delete ptr;
-
+	node * ptr;
+	int temp = front->data;
+		
+	if(front == back)
+	{
+		delete front;
+		front = back = NULL;
+	}
+	
+	else
+	{
+		ptr = front->prev;
+		ptr->next = NULL;
+		
+		delete front;
+		front = ptr;
+	}
+	
+	
 	return temp;
 }
 
@@ -351,14 +361,23 @@ int deque::get_front(void) // get the node at the front of the list
 
 int deque::get_back(void) // get the node at the back of the list
 {
-	int temp = 0;
-	temp = back->data;
+	int temp = back->data;
+	node * ptr;
 
-	node * ptr = back;
-
-	back = back->next;
-
-	delete ptr;
+	if(back == front)
+	{
+		delete back;
+		back = front = NULL;
+	}
+	
+	else
+	{
+		ptr = back->next;
+		ptr->prev = NULL;
+		
+		delete back;
+		back = ptr;
+	}
 
 	return temp;
 }

@@ -1,0 +1,432 @@
+/*********************** Question 1 source file ********************/
+
+/* File: cylinder.cpp
+ * 
+ * classes which represents points, circles and cylinders in the plane 
+ * 
+ * Programmer: Manuel Burnay
+ * 
+ * Date Created: 08/10/2017
+ * 
+ * Last Edit: 09/10/2017. Added comments explaining the code
+ */
+
+
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+class point 		// Class that relates to a point's X-Y position
+{
+	private:
+		float x; 	// X-position	
+		float y; 	// Y-position
+	public:
+		point(float h, float v); 			// The constructor of the point class. h = x-pos, and v = y-pos
+		void write(ostream &out) const; 	// Prints out the point in the form (x,y)
+};
+
+class circle 			// Class that relates to a circle's radius and its centre's X-Y position
+{
+	private:
+		point centre; 	// The circle's centre, which is a 'point'-type variable
+		float radius; 	// The radius of the circle
+	public:
+		circle(const point &p, float r); 	// The constructor of the circle class. centre = p, and radius = r. p is passed by reference to avoid needless memory usage
+		void write(ostream &out) const; 	// Prints out the circle in the form of ("centre ="(point)," radius =" radius)
+};
+
+class cylinder 			// Class that relates to a cylinder's base and height
+{
+	private:
+		circle base; 	// The cylinder's base, which is a 'circle'-type variable
+		float height; 	// The cylinder's height
+	public:
+		cylinder(const circle &c, float ht); 	// The constructor of the cylinder class. base = c, and height = ht. c is passed by reference to avoid needless memory usage
+		void write(ostream &out) const; 		// Prints out the circle in the form of ("base ="(base)," height =" height)
+};
+
+int main(void)
+{
+	point p(1.0, 2.0);
+
+	cout << "p = ";
+	p.write(cout);
+	cout << endl;
+
+	circle cir(p, 3.0);
+
+	cout << "cir = ";
+	cir.write(cout);
+	cout << endl;
+
+	cylinder cyl(cir, 7.0);
+	cout << "cyl = ";
+	cyl.write(cout);
+	cout << endl;
+
+	return 0;
+}
+//////////////////////////// implementation of point //////////////////////
+
+point::point(float h, float v) 	// The constructor of the circle class. centre = p, and radius = r. p is passed by reference to avoid needless memory usage
+{
+	x = h;
+	y = v;
+}
+void point::write(ostream &out) const 	// Prints out the point in the form (x,y)
+{
+	out << "(" << x << "," << y << ")";
+}
+
+/////////////////////////// implementation of circle ///////////////////////
+
+circle::circle(const point &p, float r) :centre(p) 	// Because the centre is a class-varialbe, it needs to be assigned this way 
+{
+	radius = r; 	// Including centre here would result in a compiler error
+}
+
+void circle::write(ostream &out) const 	// Prints out the circle in the form of ("centre = "(point)," radius =" radius)
+{
+	out << "(centre = ";
+	centre.write(cout);
+	out << ", radius = " << radius << ")";
+}
+
+/////////////////////////// implementation of cylinder ///////////////////////
+
+cylinder::cylinder(const circle &c, float ht) :base(c) 	// Same thing as above happens here. Since base is a class variable, it needs to be assigned this way 
+{
+	height = ht;
+}
+
+void cylinder::write(ostream &out) const 	// Prints out the circle in the form of ("base ="(base)," height =" height)
+{
+	out << "(base = ";
+	base.write(cout);
+	out << ", height = " << height << ")";
+}
+
+/*********************** Question 1 output file ********************/
+
+p = (1,2)
+cir = (centre = (1,2), radius = 3)
+cyl = (base = (centre = (1,2), radius = 3), height = 7)
+
+/*********************** Question 2 source file ********************/
+
+/* File: employeetime.cpp
+ * 
+ * Illustrates composition of classes
+ * 
+ * Programmer: Manuel Burnay
+ * 
+ * Date Created: 08/10/2017
+ * 
+ * Last Edit: 10/10/2017. Added comments explaining the code
+ */
+
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+class time24 			// Class that relates to time in 24H format
+{
+	private:
+		int hour_;		// Hour between 0 and 23
+		int minute_;	// mHinute between 0 and 59
+
+	public:
+		time24(int h, int m); 				// time24 constructor. hour_ = h & minute_ = m
+		void write(ostream &out) const;		// Prints our time24 as hour_:minute_
+};
+
+class employee 			// Class that relates to an employee's information
+{
+	private:
+		string name;	// Last name
+		int id;			// Employee id number
+		float salary;	// Employee salary
+		time24 start;	// Workday start time
+
+	public:
+		employee(string n, int i, float s, const time24 &t); 	// Employee constructor. Takes its Workday start time as variable initialized beforehand
+		employee(string n, int i, float s, int h, int m); 		// Employee constructor. Takes its Workday start time as hour and minute values instead of a variable initialized beforehand
+		void write(ostream &out) const; 						// Prints out Employee as {Name, ID, Salary, Workday start time}
+};
+
+int main(void)
+{
+	time24 u(8, 0);
+	employee x("Jones", 123, 45000.0, u);
+	employee y("Smith", 124, 50000.0, 8, 30);
+
+	cout << "x = "; x.write(cout); cout << endl;
+
+	cout << "y = "; y.write(cout); cout << endl;
+
+	return 0;
+}
+
+//////////////////// Implementation of time24 ///////////////////////////
+
+time24::time24(int h, int m) 	// time24 constructor. hour_ = h & minute_ = m
+{
+	hour_ = h;
+	minute_ = m;
+}
+
+void time24::write(ostream &out) const 	// Prints our time24 as hour_:minute_
+{
+	out << hour_ /10 << hour_ % 10 << ":" << minute_ / 10 << minute_ %10;
+}
+
+////////////////////// implementation of employee /////////////////////
+
+employee::employee(string n, int i, float s, const time24 &t) :start(t) 	// Again before start is a class type variable, it can't be included inside the constructor's body
+{
+	name = n;
+	id = i;
+	salary = s;
+}
+
+employee::employee(string n, int i, float s, int h, int m) :start(h,m) 		// This is another way to initialize a class parameter that is a class variable, which is to assign values that the class variable needs to initialize
+{
+	name = n;
+	id = i;
+	salary = s;
+}
+
+void employee::write(ostream &out) const 	// Prints out Employee as {Name, ID, Salary, Workday start time}
+{
+	out << "{" << name << ", " << id << ", " << salary << ", ";
+	start.write(out);
+	out << "}";
+}
+
+/*********************** Question 2 output file ********************/
+
+x = {Jones, 123, 45000, 08:00}
+y = {Smith, 124, 50000, 08:30}
+
+/*********************** Question 3 source file ********************/
+
+/* 
+ * File: workforce.cpp
+ * 
+ * An employee’s information is stored as an object of type employee
+ * consisting of name, employee id and employee salary. The methods
+ * read() and write() are defined for employee.
+ * 
+ * workforce consisting of the workforce size and a dynamically allocated
+ * array of employees. The methods read() and write() are defined for
+ * workforce
+ * 
+ * The read() and write methods for workforce uses the read() and write()
+ * methods for employee
+ * 
+ * Programmer: Manuel Burnay
+ * 
+ * Date Created: 08/10/2017
+ * 
+ * Last Edit: 10/10/2017. Added comments explaining the code
+ */
+
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+
+class employee 			// Class that relates to an employee's information
+{
+	private:
+		string name; 	// last name
+		int id; 		// employee id number
+		float salary; 	// employee salary
+
+	public:
+		employee(string n = "nobody", int i = 0, float s = 0); 	// Employee constructor with default values. You need default values in order to create arrays of these objects
+		void read(istream &in); 								// Takes in employee information of an employee from a text file record
+		void write(ostream &out) const; 						// Prints out the employee information
+};
+
+class workforce 	// Class that relates to an Employee's information record (i.e. workforce record)
+{
+	private:
+		int size; 		// size of workforce
+		employee* list; // array of employees
+
+	public:
+		workforce(int n); 							// Workforce constructor. size = n and allocates an array of employees with this size
+		workforce(const workforce& other); 			// Workforce constructor. This constructors copies the information of a workforce record into a new record
+		~workforce(); 								// Workforce destructor. Important to have it since this class contains pointers
+		workforce& operator=(const workforce& rhs); // Workforce assignment operator. Assigns the information inside a workforce record into a pre-exisiting record
+		void read(istream &in); 					// Reads the information of all employees from a text file record
+		void write(ostream &out) const; 			// Prints out the whole Workforce record
+};
+
+int main(void)
+{
+	workforce w(5); 	// While the class is set up to have a dynamic allocated record, we have pre-determined size set up
+
+	ifstream fin("workforcein.txt"); 	// file containing the list of employees adn their information
+	ofstream fout("workforceout.txt"); 	// Output file
+
+	char ch;
+
+	w.read(fin);
+	fout << "\nw = \n";
+	w.write(fout);
+
+	cout << "C to copy otherwise assign: ";
+	cin >> ch;
+
+	if(ch == 'C')
+	{
+		workforce v(w); // v’s scope is the body of the if
+		fout << "\nv = \n";
+		v.write(fout);
+		// v is destroyed here
+	}
+
+	else
+	{
+		workforce u(10); // u’s scope is the body of the else
+		u = w;
+		fout << "\nu = \n";
+		u.write(fout);
+		// u is destroyed here
+	}
+
+	fout << "\nw = \n"; // check whether w is still intact
+	w.write(fout);
+
+	fin.close();
+	fout.close();
+
+	return 0;
+}
+
+////////////////////// implementation of employee ////////////////////////
+
+employee::employee(string n, int i, float s) 	// Employee constructor with default values. name = n, id = i, salary = s
+{
+	name = n;
+	id = i;
+	salary = s;
+}
+
+void employee::read(istream &in) 	// Takes in employee information of an employee from a text file record
+{
+	in >> name >> id >> salary;
+}
+
+void employee::write(ostream &out) const 	// Prints out the employee information
+{
+	out << name << " " << id << " " << salary << endl;
+}
+
+/////////////////////// implementation of workforce //////////////////////
+
+workforce::workforce(int n) 	// Workforce constructor. size = n and allocates an array of employees with this size
+{
+	size = n;
+	list = new employee[size]; 	// Note to self: You may think you can save memory by instead having (size-1) as your array size, but instead you'll break the whole code
+}
+
+workforce::workforce(const workforce& other) 	// Workforce constructor. This constructors copies the information of a workforce record into a new record
+{
+	size = other.size;
+	list = new employee[size];
+
+	for(int i = 0; i < size; i++)
+	{
+		list[i] = other.list[i];
+	}
+}
+workforce::~workforce() 	// Workforce destructor. Important to have it since this class contains pointers
+{
+	delete [] list;
+}
+
+workforce& workforce::operator=(const workforce& rhs) 	// Workforce assignment operator. Assigns the information inside a workforce record into a pre-exisiting record
+{
+	if(this != &rhs) 	// To make sure we're not assigning  a variable to itself (things might get ugly if so)
+	{
+		for(int i = 0; i < rhs.size; i++)
+		{
+			list[i] = rhs.list[i];
+		}
+	}
+
+	return *this; 	// Returns the data that 'this' is pointing to
+}
+
+void workforce::read(istream &in) 	// Reads the information of all employees from a text file record
+{
+	for(int i = 0; i < size; i++)
+	{
+		list[i].read(in);
+	}
+}
+void workforce::write(ostream &out) const 	// Prints out the whole Workforce record
+{
+	for(int i = 0; i < size; i++)
+	{
+		list[i].write(out);
+	}
+}
+
+/*********************** Question 3 output file ********************/
+
+// Didn't press C when I got prompted
+
+w = 
+Smith 123 34000
+Jones 189 38000
+Black 342 45000
+White 111 49000
+Green 200 35000
+
+u = 
+Smith 123 34000D
+Jones 189 38000
+Black 342 45000
+White 111 49000
+Green 200 35000
+nobody 0 0
+nobody 0 0
+nobody 0 0
+nobody 0 0
+nobody 0 0
+
+w = 
+Smith 123 34000
+Jones 189 38000
+Black 342 45000
+White 111 49000
+Green 200 35000
+
+// New Run. Pressed C when I got prompted
+
+w = 
+Smith 123 34000
+Jones 189 38000
+Black 342 45000
+White 111 49000
+Green 200 35000
+
+v = 
+Smith 123 34000
+Jones 189 38000
+Black 342 45000
+White 111 49000
+Green 200 35000
+
+w = 
+Smith 123 34000
+Jones 189 38000
+Black 342 45000
+White 111 49000
+Green 200 35000

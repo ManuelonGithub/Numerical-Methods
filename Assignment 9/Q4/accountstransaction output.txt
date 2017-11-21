@@ -1,0 +1,46 @@
+a)
+The program didn't work properly, 
+processtransactions function only used the methods of the class base class, 
+and not the methods of the chequingsaccount class.
+
+b)
+The program still isn't working properly, 
+even after making the methods in the account base class virtual.
+This is because the account is being passed to the processtransaction by value as a base account object, 
+so the methods of the chequingaccount are getting sliced.
+
+deposit 100
+owner: bob
+balance: 100
+withdrawfee 0.5
+remaining free withdrawals: 2
+
+withdraw 10
+owner: bob
+balance: 90
+withdrawfee 0.5
+remaining free withdrawals: 1
+
+withdraw 5
+owner: bob
+balance: 85
+withdrawfee 0.5
+remaining free withdrawals: 0
+
+withdraw 20
+owner: bob
+balance: 64.5
+withdrawfee 0.5
+remaining free withdrawals: 0
+
+deposit 10
+owner: bob
+balance: 74.5
+withdrawfee 0.5
+remaining free withdrawals: 0
+
+withdraw 30
+owner: bob
+balance: 44
+withdrawfee 0.5
+remaining free withdrawals: 0

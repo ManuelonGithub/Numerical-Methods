@@ -76,11 +76,11 @@ float mu = 0.5;
 int main(void)
 {
     server srv;
-    int n = 50;
-	unsigned seed = 123456; // good value 8478564
+    int n;
+	unsigned seed; // good value 8478564
 
-	//cout << "Enter a seed and the number of time steps: ";
-	//cin >> seed >> n;
+	cout << "Enter a seed and the number of time steps: ";
+	cin >> seed >> n;
 
     srand(seed);
 

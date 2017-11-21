@@ -42,7 +42,7 @@ int main(void)
 		s.push(i);
 	}
 
-	cout << "The stack is:\n";		// Prints stack to the screen
+	cout << "\nThe stack is:\n";		// Prints stack to the screen
 	s.write(cout);
 
 	fout << "The stack is:\n";		// Prints stack to the output file

@@ -9,6 +9,7 @@
  * 
  * Last Edit: 17/10/2017. Added comments explaining the code
  */
+ 
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -205,7 +206,7 @@ void queue::write(ostream &out) const 	// send the data stored to out. Currently
     }
 
 	out << endl;
-	cout << "count is: " << count << endl;
+	//cout << "count is: " << count << endl;
 }
 
 void queue::debug(ostream &out) const		// Debug method. Simply outputs the start, end, and count values of the system 

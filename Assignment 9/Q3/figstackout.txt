@@ -1,0 +1,43 @@
+Besides suffering from the same issues as the question before (not having the base class methods virtualized), 
+it also suffers from having the derived classes' members/methods sliced when the figure gets pushed into the stack. 
+This is because the stack is storing every figure as a 'location' type and not a 'location' pointer, 
+so when the figures get stored every member/method the base class doesn't support gets sliced off.
+_________________________________________
+popped:
+Rectangle 
+
+Width: 3
+Length: 4
+
+Position of the bottom left corner: 
+x coordinate: 5
+y coordinate: 6
+area = 12
+_________________________________________
+
+popped:
+Triangle 
+
+Angle: 1
+Rectangle 
+
+Width: 1
+Length: 2
+
+Position of the bottom left corner: 
+x coordinate: 3
+y coordinate: 4
+area = 0.841471
+_________________________________________
+
+popped:
+Circle 
+
+Radius: 1
+
+Centre of the circle: 
+x coordinate: 1
+y coordinate: 2
+area = 3.14159
+_________________________________________
+

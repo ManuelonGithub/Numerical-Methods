@@ -1,0 +1,32 @@
+The code in the original form wouldn't work properly because the pointer 'p' is type 'location'. While it can create objects of classes derived from 'location', in its current state it can only use the methods of 'location'.
+_________________________________________
+
+object is a circle
+Radius: 1
+
+Centre of the circle: 
+x coordinate: 1
+y coordinate: 2
+area = 3.14159
+_________________________________________
+
+object is a triangle
+Angle: 1
+Width: 1
+Length: 2
+
+Position of the bottom left corner: 
+x coordinate: 3
+y coordinate: 4
+area = 0.841471
+_________________________________________
+
+object is a rectangle
+Width: 3
+Length: 4
+
+Position of the bottom left corner: 
+x coordinate: 5
+y coordinate: 6
+area = 12
+_________________________________________
