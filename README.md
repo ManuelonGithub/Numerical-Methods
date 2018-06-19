@@ -1,2 +1,2 @@
 # Numerical-Methods
-All my Numerical Methods and Data Structures assignments and test files. 
+Archive of my solutions for my Data Structures assignments. 
